@@ -1,8 +1,6 @@
 import { QueryClient } from '@tanstack/react-query';
 import { isAxiosError } from 'axios';
-/**
- * Remove the token from the local storage and redirect to the login page
- */
+
 const createRetryHandler = (handleUnauthorized: () => void, maxRetries = 2) => {
   return (count: number, error: Error) => {
     if (isAxiosError(error) && error.response?.status === 401) {
