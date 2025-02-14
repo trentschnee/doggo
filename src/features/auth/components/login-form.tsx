@@ -7,17 +7,19 @@ import { LoginDTO } from '@/features/auth/types/login-dto';
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from '@tanstack/react-query';
 import { useForm } from 'react-hook-form';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../../../components/ui/card';
 
 export const LoginForm: React.FC = () => {
   const { ...form } = useForm<LoginDTO>({ resolver: zodResolver(loginFormSchema) });
   const navigate = useNavigate();
+  const [params] = useSearchParams();
   const loginMutation = useMutation({
     mutationFn: login,
     onSuccess: (data) => {
       console.log(data);
-      navigate('/doggos')
+      const redirectTo = params.get('redirect') || '/doggos'
+      navigate(redirectTo)
     },
   });
 
