@@ -6,5 +6,4 @@ export const routes = [
   ...protectedRoutes,
   ...unprotectedRoutes,
   { path: '*', element: <Navigate to="/login" replace /> }
-  // todo:catch all route
 ]
