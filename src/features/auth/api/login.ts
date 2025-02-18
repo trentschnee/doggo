@@ -7,5 +7,5 @@ import { LoginDTO } from "../types/login-dto"
  * @param email 
  */
 export const login = async ({ name, email }: LoginDTO): Promise<void> => {
-  return httpClient.post('/auth/login', { name, email })
+  await httpClient.post('/auth/login', { name, email })
 }

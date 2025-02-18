@@ -7,4 +7,3 @@ export const httpClient = Axios.create({
     Accept: "application/json",
   }
 });
-httpClient.interceptors.response.use((response) => response.data, (error) => Promise.reject(error));
