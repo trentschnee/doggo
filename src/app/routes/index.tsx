@@ -1,19 +1,10 @@
-import { AuthLayout } from "../../components/layouts/auth-layout";
-import { LoginForm } from "../../features/auth/components/login-form";
+import { Navigate } from "react-router-dom";
+import { protectedRoutes } from "./protected-routes";
+import { unprotectedRoutes } from "./unprotected-routes";
 
 export const routes = [
-  {
-    path: '/', children: [
-      { path: '/doggos', element: <div>doggos</div> },
-    ]
-  },
-  {
-    path: '/auth',
-    element: <AuthLayout />, children: [
-      { path: 'login', element: <LoginForm /> },
-    ]
-
-  },
-  { path: '*', element: <div>404</div> }
+  ...protectedRoutes,
+  ...unprotectedRoutes,
+  { path: '*', element: <Navigate to="/login" replace /> }
   // todo:catch all route
 ]

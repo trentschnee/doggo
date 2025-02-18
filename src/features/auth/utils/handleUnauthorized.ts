@@ -4,6 +4,6 @@
 export const handleUnauthorized = () => {
   const searchParams = new URLSearchParams(window.location.search);
   searchParams.set('redirect', window.location.pathname);
-  window.location.href = `/auth/login?${searchParams.toString()}`;
+  window.location.href = `/login?${searchParams.toString()}`;
 
 }
