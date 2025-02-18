@@ -1,30 +1,19 @@
 import { Button } from '@/components/ui/button';
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import { login } from '@/features/auth/api/login';
+import { useAuth } from '@/features/auth/hooks/use-auth';
 import { loginFormSchema } from '@/features/auth/schemas/login-form-schema';
 import { LoginDTO } from '@/features/auth/types/login-dto';
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useMutation } from '@tanstack/react-query';
 import { useForm } from 'react-hook-form';
-import { useNavigate, useSearchParams } from 'react-router-dom';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../../../components/ui/card';
 
 export const LoginForm: React.FC = () => {
   const { ...form } = useForm<LoginDTO>({ resolver: zodResolver(loginFormSchema) });
-  const navigate = useNavigate();
-  const [params] = useSearchParams();
-  const loginMutation = useMutation({
-    mutationFn: login,
-    onSuccess: (data) => {
-      console.log(data);
-      const redirectTo = params.get('redirect') || '/doggos'
-      navigate(redirectTo)
-    },
-  });
+  const { login, isLoggingIn } = useAuth();
 
   const onSubmit = async (data: LoginDTO) => {
-    loginMutation.mutate(data);
+    login(data);
   };
   return <Form {...form}>
     <Card>
@@ -67,7 +56,7 @@ export const LoginForm: React.FC = () => {
             )}
           />
 
-          <Button type="submit">{loginMutation.isPending ? 'Logging in...' : 'Login'}</Button>
+          <Button type="submit">{isLoggingIn ? 'Logging in...' : 'Login'}</Button>
         </form></CardContent>  </Card ></Form>
 
 }
