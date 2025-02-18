@@ -1,4 +1,6 @@
 
+import { useDogSearch } from "@/features/dogs/hooks"
+import { SearchFilters } from "@/features/dogs/types"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@radix-ui/react-dropdown-menu"
 import { Avatar, AvatarFallback } from "../../components/ui/avatar"
 import { Button } from "../../components/ui/button"
@@ -8,6 +10,13 @@ import { useAuth } from "../../features/auth/hooks/use-auth"
 
 export const DoggosPage: React.FC = () => {
   const { logout } = useAuth();
+  const filters: SearchFilters = {
+    breeds: [],
+    sortBy: 'breed',
+    sortOrder: 'asc',
+    pageSize: 25
+  }
+  const { data: searchResults, isLoading } = useDogSearch(filters)
 
   return (<>
     <header>
@@ -35,7 +44,7 @@ export const DoggosPage: React.FC = () => {
     </header>
     <main>
       <div className="min-h-screen">
-        <p>doggos list</p>
+        {searchResults && searchResults.dogIds.map((dogId, idx) => (<p key={idx}>{dogId}</p>))}
       </div>
     </main>
   </>
