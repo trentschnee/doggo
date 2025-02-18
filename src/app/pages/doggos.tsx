@@ -23,7 +23,7 @@ export const DoggosPage: React.FC = () => {
       <div className="container ">
         <div className="flex items-center gap-1">
           <h4>Doggo Finder</h4>
-          <Input className="flex-1" type="email" placeholder="Email" />
+          <Input className="flex-1" type="email" placeholder="Border Collie" />
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant="ghost" className="relative h-8 w-8 rounded-full">

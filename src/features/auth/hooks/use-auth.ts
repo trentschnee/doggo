@@ -10,10 +10,10 @@ export function useAuth() {
 
   const queryClient = useQueryClient();
   const [params] = useSearchParams();
-  const { isAuthenticated } = useMemo(() => {
-    return ({ isAuthenticated: queryClient.getQueryData(AUTH_QUERY_KEY) ?? false, })
-
+  const isAuthenticated = useMemo(() => {
+    return queryClient.getQueryData(AUTH_QUERY_KEY) ?? false
   }, [queryClient])
+
   const loginMutation = useMutation({
     mutationFn: login,
     onSuccess: (data) => {
@@ -27,6 +27,8 @@ export function useAuth() {
     mutationFn: logout,
     onSuccess: () => {
       queryClient.setQueryData(AUTH_QUERY_KEY, false);
+      queryClient.clear();
+      navigate('/login')
 
     }
   })
