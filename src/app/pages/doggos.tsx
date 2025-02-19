@@ -18,35 +18,38 @@ export const DoggosPage: React.FC = () => {
   }
   const { data: searchResults, isLoading } = useDogSearch(filters)
 
-  return (<>
-    <header>
-      <div className="container ">
-        <div className="flex items-center gap-1">
-          <h4>Doggo Finder</h4>
-          <Input className="flex-1" type="email" placeholder="Border Collie" />
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button variant="ghost" className="relative h-8 w-8 rounded-full">
-                <Avatar className="h-8 w-8">
-                  <AvatarFallback>username</AvatarFallback>
-                </Avatar>
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent className="w-56" align="end">
-              <DropdownMenuItem onClick={() => logout()}>
-                Log out
-              </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
-        </div>
+  return (<div className="flex min-h-screen flex-col">
+    <header className="w-full border-b ">
+      <div className="container mx-auto max-w-6xl px-4 flex items-center justify-between h-16 gap-4">
+
+        <h4>Doggo Finder</h4>
+        <Input className="flex-1" type="email" placeholder="Border Collie" />
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button variant="ghost" className="relative h-8 w-8 rounded-full">
+              <Avatar className="h-8 w-8">
+                <AvatarFallback>username</AvatarFallback>
+              </Avatar>
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent className="w-56" align="end">
+            <DropdownMenuItem onClick={() => logout()}>
+              Log out
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
       </div>
 
     </header>
-    <main>
-      <div className="min-h-screen">
+    <main className="flex-1">
+      <div className="container mx-auto max-w-6xl px-4">
+        content
+        {/* <div className="min-h-screen">
         {searchResults && searchResults.dogIds.map((dogId, idx) => (<p key={idx}>{dogId}</p>))}
+      </div> */}
       </div>
+
     </main>
-  </>
+  </div>
   )
 }
