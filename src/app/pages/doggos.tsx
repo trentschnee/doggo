@@ -6,6 +6,7 @@ import { DogCard } from "@/features/dogs/components/organisms/dog-card"
 import { useDogBreeds, useDogSearch } from "@/features/dogs/hooks"
 import { SearchFilters } from "@/features/dogs/types"
 import { Dog } from "@/features/dogs/types/models/dog"
+import { ChevronLeft, ChevronRight } from "lucide-react"
 import { useCallback, useEffect, useState } from "react"
 import { FilterForm } from "../../features/dogs/components/organisms/filter-form/filter-form.component"
 
@@ -65,6 +66,30 @@ export const DoggosPage: React.FC = () => {
       }
     }))
   }, [])
+  /**
+   * Pagination functionality
+   */
+  const [currentPage, setCurrentPage] = useState(1);
+
+  const handleNextPage = useCallback(() => {
+    if (searchResults?.nextCursor) {
+      setFilters(prev => ({
+        ...prev,
+        cursor: searchResults.nextCursor
+      }));
+      setCurrentPage(prev => prev + 1);
+    }
+  }, [searchResults?.nextCursor]);
+
+  const handlePreviousPage = useCallback(() => {
+    if (searchResults?.previousCursor) {
+      setFilters(prev => ({
+        ...prev,
+        cursor: searchResults.previousCursor
+      }));
+      setCurrentPage(prev => prev - 1);
+    }
+  }, [searchResults?.previousCursor]);
   const isFavorite = useCallback((dogId: string) => favoriteIds.some((dog) => dog === dogId), [favoriteIds])
   return (
     <div className="flex min-h-screen flex-col">
@@ -78,17 +103,24 @@ export const DoggosPage: React.FC = () => {
       </header>
       <div className="flex-1 py-6">
         <div className="container mx-auto max-w-6xl px-4">
-          <div className="flex gap-8 ">
-            <aside>
+          <div className="flex gap-8 h-[calc(100vh-8rem)]">
+            <aside className="w-60 flex-shrink-0">
+
               <FilterForm isLoading={searchResultsLoading} breeds={
                 breeds
               } onSubmit={handleFilterSubmit} />
             </aside>
-            <main className="flex-1">
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-                {dogs.map((dog, id) => (
-                  <DogCard key={id} dog={dog} onFavoriteToggle={handleFavoriteToggle} isFavorite={isFavorite(dog.id)} />
-                ))}
+            <main className="flex-1 flex flex-col">
+              <div className="flex-1 overflow-y-auto mb-4">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+                  {dogs.map((dog, id) => (
+                    <DogCard key={id} dog={dog} onFavoriteToggle={handleFavoriteToggle} isFavorite={isFavorite(dog.id)} />
+                  ))}
+                </div>
+              </div>
+              <div className="flex justify-between space-x-2 mt-auto pt-2">
+                <Button variant="outline" size="sm" disabled={!searchResults?.hasPreviousPage} onClick={handlePreviousPage}>    <ChevronLeft className="h-4 w-4 mr-1" /> Previous</Button>
+                <Button variant="outline" size="sm" disabled={!searchResults?.hasNextPage} onClick={handleNextPage}>Next   <ChevronRight className="h-4 w-4 ml-1" /></Button>
               </div>
             </main>
           </div>
