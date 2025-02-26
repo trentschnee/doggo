@@ -6,7 +6,7 @@ import { DogCard } from "@/features/dogs/components/organisms/dog-card"
 import { useDogBreeds, useDogSearch } from "@/features/dogs/hooks"
 import { SearchFilters } from "@/features/dogs/types"
 import { Dog } from "@/features/dogs/types/models/dog"
-import { useEffect, useState } from "react"
+import { useCallback, useEffect, useState } from "react"
 import { FilterForm } from "../../features/dogs/components/organisms/filter-form/filter-form.component"
 
 
@@ -49,8 +49,23 @@ export const DoggosPage: React.FC = () => {
     fetchDogs();
   }, [searchResults?.dogIds]);
 
-
-
+  /**
+   * Favorites functionality
+   * stores the dog ids in the state for matching later
+   */
+  const [favoriteIds, setFavoriteIds] = useState<string[]>([]);
+  // uses useCallback to memoize the function
+  const handleFavoriteToggle = useCallback((dog: Dog) => {
+    setFavoriteIds((prev => {
+      if (prev.includes(dog.id)) {
+        return prev.filter(id => id !== dog.id)
+      }
+      else {
+        return [...prev, dog.id]
+      }
+    }))
+  }, [])
+  const isFavorite = useCallback((dogId: string) => favoriteIds.some((dog) => dog === dogId), [favoriteIds])
   return (
     <div className="flex min-h-screen flex-col">
       <header className="w-full border-b ">
@@ -72,7 +87,7 @@ export const DoggosPage: React.FC = () => {
             <main className="flex-1">
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
                 {dogs.map((dog, id) => (
-                  <DogCard key={id} dog={dog} />
+                  <DogCard key={id} dog={dog} onFavoriteToggle={handleFavoriteToggle} isFavorite={isFavorite(dog.id)} />
                 ))}
               </div>
             </main>
