@@ -16,8 +16,7 @@ export function useAuth() {
 
   const loginMutation = useMutation({
     mutationFn: login,
-    onSuccess: (data) => {
-      console.log(data);
+    onSuccess: () => {
       queryClient.setQueryData(AUTH_QUERY_KEY, true);
       const redirectTo = params.get('redirect') || '/doggos'
       navigate(redirectTo)
