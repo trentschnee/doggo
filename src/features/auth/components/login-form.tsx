@@ -9,7 +9,7 @@ import { useForm } from 'react-hook-form';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../../../components/ui/card';
 
 export const LoginForm: React.FC = () => {
-  const { ...form } = useForm<LoginDTO>({ resolver: zodResolver(loginFormSchema) });
+  const { ...form } = useForm<LoginDTO>({ resolver: zodResolver(loginFormSchema), defaultValues: { name: '', email: '' } });
   const { login, isLoggingIn } = useAuth();
 
   const onSubmit = async (data: LoginDTO) => {
