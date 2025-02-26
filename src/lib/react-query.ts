@@ -1,9 +1,15 @@
 import { QueryClient } from '@tanstack/react-query';
-import { isAxiosError } from 'axios';
-
+interface AxiosErrorObject extends Error {
+  isAxiosError?: boolean;
+  response?: {
+    status?: number;
+  };
+}
 const createRetryHandler = (handleUnauthorized: () => void, maxRetries = 2) => {
   return (count: number, error: Error) => {
-    if (isAxiosError(error) && error.response?.status === 401) {
+    const axiosError = error as AxiosErrorObject
+
+    if (axiosError.isAxiosError && axiosError.response?.status === 401) {
       handleUnauthorized();
       return false
     }
