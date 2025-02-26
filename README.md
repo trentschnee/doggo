@@ -1,50 +1,70 @@
-# React + TypeScript + Vite
+# Doggo Finder
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A React application that helps users find their perfect dog match from available shelter dogs.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- User authentication
+- Browse available dogs with filtering options
+- Pagination for dog listings
+- Filter by breed and age
+- Sort results alphabetically by breed, age, or name
+- Favorite dogs you're interested in
+- Generate a match from your favorites
 
-## Expanding the ESLint configuration
+## Tech Stack
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+- React 19
+- TypeScript
+- Vite
+- TanStack Query (React Query) for data fetching
+- React Router for navigation
+- Shadcn UI components
+- Tailwind CSS for styling
+- Vitest for testing
 
-- Configure the top-level `parserOptions` property like this:
+## Prerequisites
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+- Node.js (v16+)
+- npm or yarn
+## Installation
+
+Clone the repository:
+`git clone https://github.com/trentschnee/doggo-finder.git`
+
+`cd doggo-finder`
+
+Install dependencies:
+
+`npm install`
+
+Create a .env file in the root directory with the following content:
+VITE_FETCH_FETAKEHOME_BASE_API_URL=https://frontend-take-home-service.fetch.com
+
+## Running the Application
+To start the development server:
+`npm run dev`
+## Building for Production
+To create a production build:
+`npm run build`
+The build will be available in the dist directory.
+## Testing
+To run tests:
+`npm test`
+To run tests in watch mode:
+`npm run test:watch`
+To check test coverage:
+`npm run test:coverage`
+## Project Structure
 ```
-
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
-
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
-
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
+src/
+├── app/                  # Application routing and pages
+├── components/           # Shared UI components
+├── features/             # Feature modules
+│   ├── auth/             # Authentication feature
+│   ├── dogs/             # Dog search and display feature
+│   └── location/         # Location-related functionality
+├── lib/                  # Utility libraries
+├── providers/            # Context providers
+└── main.tsx              # Application entry point
 ```
