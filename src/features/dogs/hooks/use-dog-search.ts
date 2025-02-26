@@ -4,15 +4,14 @@ import { useQuery } from "@tanstack/react-query";
 import { SearchFilters } from "../types";
 import { mapSearchFiltersModelToSearchParamsDto, mapSearchResponseDtoToSearchResults } from "../utils";
 // todo: implement DogSearchParams
-export const useDogSearch = (filters: SearchFilters) => {
-  
+export const useDogSearch = (filters: SearchFilters, enabled: boolean = true) => {
   return useQuery({
-    queryKey: [DOGS_QUERY_KEY, 'search'],
+    queryKey: [DOGS_QUERY_KEY, 'search', filters],
     queryFn: async () => {
       const params = mapSearchFiltersModelToSearchParamsDto(filters)
       const response = await searchDogs(params)
       return mapSearchResponseDtoToSearchResults(response)
-      //
-    }
+    },
+    enabled: enabled,
   });
 }
