@@ -42,7 +42,7 @@ export const FilterForm: React.FC<FilterFormProps> = ({ breeds, isLoading, onSub
       age: getAgeRangeFromValue(values.ageRange),
       sortBy: values.sortBy,
       sortOrder: values.sortOrder,
-      pageSize: 25
+      pageSize: 12
     };
 
     onSubmit(newFilters)

@@ -141,7 +141,7 @@ export const DoggosPage: React.FC = () => {
                   <div className="flex justify-between items-center mb-6">
                     <h2 className="text-lg font-semibold">Available Dogs</h2>
                     {favoriteIds.length > 0 && (
-                      <div className="text-sm text-muted-foreground">
+                      <div className="text-sm ">
                         {favoriteIds.length} {favoriteIds.length === 1 ? 'dog' : 'dogs'} favorited
                       </div>
                     )}
