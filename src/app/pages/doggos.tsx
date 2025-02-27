@@ -119,10 +119,10 @@ export const DoggosPage: React.FC = () => {
             <Button variant={"link"} onClick={() => logout()}>Logout</Button>
           </div>
         </header>
-        <div className="flex-1 py-6">
-          <div className="container mx-auto max-w-6xl px-4">
-            <div className="flex gap-8 h-[calc(100vh-8rem)]">
-              <aside className="w-60 flex-shrink-0">
+        <div className="flex-1 py-4 md:py-6">
+          <div className="container mx-auto px-4">
+            <div className="flex flex-col lg:flex-row gap-4 lg:gap-8">
+              <aside className="w-full lg:w-60 lg:flex-shrink-0 mb-4 lg:mb-0">
 
                 <FilterForm isLoading={searchResultsLoading} breeds={
                   breeds
@@ -146,7 +146,7 @@ export const DoggosPage: React.FC = () => {
                       </div>
                     )}
                   </div>
-                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3  gap-4">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                     {dogs.map((dog, id) => (
                       <DogCard key={id} dog={dog} onFavoriteToggle={handleFavoriteToggle} isFavorite={isFavorite(dog.id)} />
                     ))}
