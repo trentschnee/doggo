@@ -1,0 +1,18 @@
+{
+  "redirects": [
+    {
+      "source": "/(.*)",
+      "has": [
+        {
+          "type": "host",
+          "value": "doggo-[a-z0-9]+-trentschnees-projects\\.vercel\\.app"
+        }
+      ],
+      "destination": "https://doggo-beta.vercel.app/$1",
+      "permanent": true
+    }
+  ],
+  "rewrites": [
+    { "source": "/(.*)", "destination": "/index.html" }
+  ]
+}
